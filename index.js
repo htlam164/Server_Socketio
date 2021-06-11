@@ -1,7 +1,8 @@
 var app = require("express")();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-var fs = require('fs');
+
+
 
 
 var stations = [];
@@ -14,7 +15,7 @@ const urlStation =
     "mongodb+srv://vutrantienbao290699:vutrantienbao99@project.murnk.mongodb.net/ESP?retryWrites=true&w=majority";
 const client = new MongoClient(urlStation,{useNewUrlParser: true,
    useUnifiedTopology: true});
-   
+
 client.connect();
 
 
@@ -83,9 +84,7 @@ io.on("connection", (socket) => {
               io.emit("tempto1app", `${msg.humi}`);
               io.emit("tempto2app", `${msg.cps}`);
               io.emit("tempto3app", `${msg.uSv}`);
-              io.emit("tempto4app", `${msg.counts}`);
-              console.log(msg.date);
-             
+              io.emit("tempto4app", `${msg.counts}`);              
                
                 const col = db.collection("Tram_1");
                 const p = col.insertOne(msg);
@@ -148,7 +147,8 @@ io.on("connection", (socket) => {
 
                 const col = db.collection("Tram_4");
                 const p = col.insertOne(msg);
-              
+                // let data = JSON.stringify(msg);
+                //   fs.appendFileSync('student-2.json', data);
             } catch (err) {
 
             }
